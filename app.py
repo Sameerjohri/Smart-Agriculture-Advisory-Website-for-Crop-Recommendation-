@@ -28,7 +28,7 @@ def set_background(image_path):
         unsafe_allow_html=True
     )
 
-set_background("background.png")
+set_background("Background.png")
 
 # ---------------- RESPONSIVE CSS ----------------
 st.markdown("""
