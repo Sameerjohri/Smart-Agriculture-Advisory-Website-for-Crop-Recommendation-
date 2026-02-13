@@ -3,14 +3,14 @@ import base64
 from src.prediction import predict_crop
 
 
-# ---------------- PAGE CONFIG ----------------
+#  PAGE CONFIG 
 st.set_page_config(
     page_title="Smart Agriculture Advisor",
     page_icon="🌱",
     layout="wide"
 )
 
-# ---------------- BACKGROUND IMAGE ----------------
+# BACKGROUND IMAGE 
 def set_background(image_path):
     with open(image_path, "rb") as img:
         encoded = base64.b64encode(img.read()).decode()
@@ -23,7 +23,6 @@ def set_background(image_path):
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            background-attachment: fixed;
         }}
         </style>
         """,
@@ -32,34 +31,35 @@ def set_background(image_path):
 
 set_background("Background.png")
 
-# ---------------- RESPONSIVE CSS ----------------
+#  CSS 
 st.markdown("""
 <style>
 /* General */
 .card {
     background-color: rgba(255, 255, 255, 0.92);
-    padding: 18px;
+    padding: 12px;
     border-radius: 15px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.12);
     text-align: center;
-    height: 100vw;
+    min-height: 100px;
 }
+
 
 .header {
     background-color: rgba(255,255,255,0.92);
-    padding: 20px;
+    padding: 10px;
     border-radius: 15px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     text-align: center;
 }
 
 .big {
-    font-size: 26px;
+    font-size: 16px;
     font-weight: bold;
 }
 
 .sub {
-    font-size: 16px;
+    font-size: 10px;
     color: #555;
 }
 
@@ -91,7 +91,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# ---------------- HEADER ----------------
+# HEADER 
 st.markdown("""
 <div class="header">
     <h1>🌱 Smart Agriculture Advisor</h1>
@@ -99,7 +99,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# ---------------- INPUT SECTION ----------------
+# INPUT SECTION 
 col1, col2, col3 = st.columns(3)
 N = col1.number_input("Nitrogen (N)", 0, 140, 70)
 P = col2.number_input("Phosphorus (P)", 0, 145, 40)
@@ -111,11 +111,11 @@ humidity = col5.number_input("Humidity (%)", 0.0, 100.0, 65.0)
 ph = col6.number_input("pH Level", 0.0, 14.0, 6.5)
 rainfall = col7.number_input("Rainfall (mm)", 0.0, 300.0, 100.0)
 
-# ---------------- BUTTON ----------------
+#  BUTTON 
 predict = st.button("🌾 Predict Crop")
 
 st.write("")
-# ---------------- DASHBOARD OUTPUT ----------------
+#  DASHBOARD OUTPUT 
 crop_tips = {
 
     "apple": "Requires cool climate and well-drained loamy soil. Prune regularly and ensure proper irrigation.",
@@ -163,17 +163,18 @@ crop_tips = {
     "watermelon": "Needs warm climate and sandy soil. Avoid excessive watering."
 }
 
-
 if predict:
+
     crop = predict_crop(N, P, K, temp, humidity, ph, rainfall)
 
-    # 🔥 Get dynamic tip
-    tips = crop_tips.get(crop.lower(), 
+    tips = crop_tips.get(crop.lower(),
                          "Follow recommended agricultural practices.")
 
-    c1, c2, c3, c4 = st.columns(4)
+    row1_col1, row1_col2 = st.columns(2)
+    row2_col1, row2_col2 = st.columns(2)
 
-    with c1:
+    # -------- Row 1 --------
+    with row1_col1:
         st.markdown(f"""
         <div class="card">
             <h3>🌾 Recommended Crop</h3>
@@ -181,7 +182,7 @@ if predict:
         </div>
         """, unsafe_allow_html=True)
 
-    with c2:
+    with row1_col2:
         st.markdown(f"""
         <div class="card">
             <h3>🌱 Soil Condition</h3>
@@ -190,7 +191,8 @@ if predict:
         </div>
         """, unsafe_allow_html=True)
 
-    with c3:
+    # -------- Row 2 --------
+    with row2_col1:
         st.markdown(f"""
         <div class="card">
             <h3>☀️ Weather Details</h3>
@@ -200,7 +202,7 @@ if predict:
         </div>
         """, unsafe_allow_html=True)
 
-    with c4:
+    with row2_col2:
         st.markdown(f"""
         <div class="card">
             <h3>📋 Farming Tips</h3>
@@ -209,10 +211,20 @@ if predict:
         """, unsafe_allow_html=True)
 
 
-# ---------------- FOOTER ----------------
+# FOOTER 
 st.write("")
+
 st.markdown("""
-<div style="text-align:center; color:white; font-size:14px;">
+<div style="
+    text-align:center; 
+    color:white; 
+    font-size:14px; 
+    background-color:green; 
+    padding:10px; 
+    border-radius:10px;
+    margin-top:20px;
+">
     Accuracy: 92% &nbsp; | &nbsp; Model: AI Crop Recommender &nbsp; | &nbsp; Last Updated: Jan 2025
 </div>
 """, unsafe_allow_html=True)
+
