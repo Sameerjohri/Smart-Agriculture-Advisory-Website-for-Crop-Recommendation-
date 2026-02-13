@@ -1,5 +1,7 @@
 import streamlit as st
 import base64
+from src.prediction import predict_crop
+
 
 # ---------------- PAGE CONFIG ----------------
 st.set_page_config(
@@ -98,37 +100,76 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ---------------- INPUT SECTION ----------------
-st.markdown("### Enter Crop Details")
+col1, col2, col3 = st.columns(3)
+N = col1.number_input("Nitrogen (N)", 0, 140, 70)
+P = col2.number_input("Phosphorus (P)", 0, 145, 40)
+K = col3.number_input("Potassium (K)", 0, 205, 35)
 
-col1, col2, col3, col4 = st.columns(4)
-
-with col1:
-    N = st.number_input("Nitrogen (N)", 0, 140, 70)
-with col2:
-    P = st.number_input("Phosphorus (P)", 0, 145, 40)
-with col3:
-    K = st.number_input("Potassium (K)", 0, 205, 35)
-with col4:
-    ph = st.number_input("pH Level", 0.0, 14.0, 6.5)
-
-col5, col6 = st.columns(2)
-
-with col5:
-    temp = st.number_input("Temperature (°C)", 0.0, 60.0, 28.0)
-with col6:
-    humidity = st.number_input("Humidity (%)", 0.0, 100.0, 65.0)
-
-st.write("")
+col4, col5, col6, col7 = st.columns(4)
+temp = col4.number_input("Temperature (°C)", 0.0, 60.0, 28.0)
+humidity = col5.number_input("Humidity (%)", 0.0, 100.0, 65.0)
+ph = col6.number_input("pH Level", 0.0, 14.0, 6.5)
+rainfall = col7.number_input("Rainfall (mm)", 0.0, 300.0, 100.0)
 
 # ---------------- BUTTON ----------------
 predict = st.button("🌾 Predict Crop")
 
 st.write("")
-
 # ---------------- DASHBOARD OUTPUT ----------------
+crop_tips = {
+
+    "apple": "Requires cool climate and well-drained loamy soil. Prune regularly and ensure proper irrigation.",
+    
+    "banana": "Prefers warm and humid climate. Apply potassium-rich fertilizer and maintain proper drainage.",
+    
+    "blackgram": "Grows well in warm climate with moderate rainfall. Avoid waterlogging and use phosphorus fertilizer.",
+    
+    "chickpea": "Requires cool dry climate. Avoid excessive nitrogen fertilizer and ensure proper drainage.",
+    
+    "coconut": "Needs tropical climate and sandy loam soil. Provide regular irrigation and organic manure.",
+    
+    "coffee": "Requires moderate rainfall and shade. Maintain slightly acidic soil and proper pruning.",
+    
+    "cotton": "Needs warm temperature and moderate rainfall. Apply balanced NPK fertilizer and ensure good drainage.",
+    
+    "grapes": "Requires warm dry climate. Proper pruning and potassium fertilization improves fruit quality.",
+    
+    "jute": "Grows well in warm humid climate with high rainfall. Ensure fertile alluvial soil.",
+    
+    "kidneybeans": "Requires moderate rainfall and well-drained soil. Avoid excessive nitrogen.",
+    
+    "lentil": "Prefers cool season and dry climate. Requires less water and good drainage.",
+    
+    "maize": "Needs moderate rainfall and well-drained soil. Apply nitrogen-rich fertilizer.",
+    
+    "mango": "Requires tropical climate and well-drained soil. Avoid water stagnation.",
+    
+    "mothbeans": "Grows in dry and arid regions. Requires less irrigation and sandy soil.",
+    
+    "mungbean": "Prefers warm climate. Ensure proper drainage and phosphorus-rich fertilizer.",
+    
+    "muskmelon": "Requires warm dry climate and sandy loam soil. Avoid overwatering.",
+    
+    "orange": "Needs well-drained soil and moderate climate. Apply organic manure regularly.",
+    
+    "papaya": "Requires warm humid climate. Avoid waterlogging and use balanced fertilizers.",
+    
+    "pigeonpeas": "Grows well in semi-arid climate. Requires less irrigation and nitrogen fixation.",
+    
+    "pomegranate": "Prefers dry climate. Requires well-drained soil and controlled irrigation.",
+    
+    "rice": "Requires high rainfall and standing water during early growth stage.",
+    
+    "watermelon": "Needs warm climate and sandy soil. Avoid excessive watering."
+}
+
+
 if predict:
-    crop = "Rice"
-    soil = "Loamy Soil"
+    crop = predict_crop(N, P, K, temp, humidity, ph, rainfall)
+
+    # 🔥 Get dynamic tip
+    tips = crop_tips.get(crop.lower(), 
+                         "Follow recommended agricultural practices.")
 
     c1, c2, c3, c4 = st.columns(4)
 
@@ -136,7 +177,7 @@ if predict:
         st.markdown(f"""
         <div class="card">
             <h3>🌾 Recommended Crop</h3>
-            <p class="big">{crop}</p>
+            <p class="big">{crop.upper()}</p>
         </div>
         """, unsafe_allow_html=True)
 
@@ -144,8 +185,8 @@ if predict:
         st.markdown(f"""
         <div class="card">
             <h3>🌱 Soil Condition</h3>
-            <p>Soil Type: {soil}</p>
             <p>pH Level: {ph}</p>
+            <p>NPK Balanced</p>
         </div>
         """, unsafe_allow_html=True)
 
@@ -155,16 +196,18 @@ if predict:
             <h3>☀️ Weather Details</h3>
             <p>Temperature: {temp} °C</p>
             <p>Humidity: {humidity} %</p>
+            <p>Rainfall: {rainfall} mm</p>
         </div>
         """, unsafe_allow_html=True)
 
     with c4:
-        st.markdown("""
+        st.markdown(f"""
         <div class="card">
             <h3>📋 Farming Tips</h3>
-            <p>Use balanced fertilizer and ensure proper irrigation.</p>
+            <p>{tips}</p>
         </div>
         """, unsafe_allow_html=True)
+
 
 # ---------------- FOOTER ----------------
 st.write("")

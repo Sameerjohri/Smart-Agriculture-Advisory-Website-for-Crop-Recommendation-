@@ -1,7 +1,7 @@
 import joblib
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
-from src.data_preprocessing import preprocess_data
+from data_preprocessing import preprocess_data
 
 def train_model():
     X, y, scaler = preprocess_data("data/crop_data.csv")
