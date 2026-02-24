@@ -35,6 +35,10 @@ set_background("Background.png")
 st.markdown("""
 <style>
 /* General */
+
+div.block-container {
+    padding-top: 3rem ;
+}
 .card {
     background-color: rgba(255, 255, 255, 0.92);
     color: black !important;
@@ -42,7 +46,7 @@ st.markdown("""
     box-shadow: 0 4px 10px rgba(0,0,0,0.12);
     text-align: center;
     min-height: 170px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 
