@@ -20,7 +20,7 @@ def set_background(image_path):
         <style>
         .stApp {{
             background-image: url("data:image/jpg;base64,{encoded}");
-            background-size: cover;
+            background-size: 100% 100%;
             background-position: center;
             background-repeat: no-repeat;
         }}
@@ -37,11 +37,11 @@ st.markdown("""
 /* General */
 .card {
     background-color: rgba(255, 255, 255, 0.92);
-    padding: 12px;
     border-radius: 15px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.12);
     text-align: center;
-    min-height: 100px;
+    min-height: 170px;
+    margin-bottom: 15px;
 }
 
 
@@ -49,19 +49,65 @@ st.markdown("""
     background-color: rgba(255,255,255,0.92);
     padding: 10px;
     border-radius: 15px;
+    margin-top: 5px;
     margin-bottom: 10px;
     text-align: center;
+    
 }
 
 .big {
-    font-size: 16px;
+    font-size: 32px;
     font-weight: bold;
 }
 
 .sub {
-    font-size: 10px;
+    font-size: 16px;
     color: #555;
 }
+/* Make all input boxes white */
+div[data-baseweb="input"] > div {
+    background-color: white !important;
+}
+
+div[data-baseweb="input"] input {
+    background-color: white !important;
+    color: black !important;
+}
+
+/* Number input box background */
+div[data-baseweb="base-input"] {
+    background-color: white !important;
+}
+
+/* Dropdowns */
+div[data-baseweb="select"] > div {
+    background-color: white !important;
+}
+
+/* Remove transparency */
+.stNumberInput input {
+    background-color: white !important;
+}
+
+/* Label background styling */
+label {
+    background-color: black;
+    padding: 4px 8px !important;
+    border-radius: 6px !important;
+    font-weight: 600 !important;
+    color: white !important;
+}
+
+/* Extra fix for Streamlit labels */
+.stNumberInput label,
+.stTextInput label,
+.stSelectbox label {
+    background-color: black;
+    padding: 4px 8px !important;
+    border-radius: 6px !important;
+    color: white !important;
+}
+
 
 /* Tablet */
 @media (max-width: 992px) {
@@ -93,9 +139,40 @@ st.markdown("""
 
 # HEADER 
 st.markdown("""
-<div class="header">
+<style>
+.header-container {
+    background: linear-gradient(90deg, #1e7f3f, #2ecc71);
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    color: white;
+    margin-bottom: 20px;
+}
+.header-container h1 {
+    margin: 0;
+    font-size: 36px;
+}
+.header-container p {
+    margin: 5px 0 0 0;
+    font-size: 18px;
+}
+</style>
+
+<div class="header-container">
     <h1>🌱 Smart Agriculture Advisor</h1>
-    <p class="sub">AI-Powered Crop Recommendation System</p>
+    <p>AI-Powered Crop Recommendation System</p>
+</div>
+""", unsafe_allow_html=True)
+
+# WHITE INPUT CARD START
+st.markdown("""
+<div style="
+    background-color: rgba(255,255,255,0.95);
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+">
+<h3>🧪 Enter Soil & Weather Details</h3>
 </div>
 """, unsafe_allow_html=True)
 
@@ -111,8 +188,11 @@ humidity = col5.number_input("Humidity (%)", 0.0, 100.0, 65.0)
 ph = col6.number_input("pH Level", 0.0, 14.0, 6.5)
 rainfall = col7.number_input("Rainfall (mm)", 0.0, 300.0, 100.0)
 
+
 #  BUTTON 
-predict = st.button("🌾 Predict Crop")
+col_btn1, col_btn2, col_btn3 = st.columns([1,2,1])
+with col_btn2:
+    predict = st.button("🌾 Predict Crop", use_container_width=True)
 
 st.write("")
 #  DASHBOARD OUTPUT 
@@ -169,6 +249,17 @@ if predict:
 
     tips = crop_tips.get(crop.lower(),
                          "Follow recommended agricultural practices.")
+    
+    
+    soil_status = "Balanced"
+
+    if N < 50:
+        soil_status = "Low Nitrogen"
+    elif P < 40:
+        soil_status = "Low Phosphorus"
+    elif K < 40:
+        soil_status = "Low Potassium"
+
 
     row1_col1, row1_col2 = st.columns(2)
     row2_col1, row2_col2 = st.columns(2)
@@ -187,7 +278,8 @@ if predict:
         <div class="card">
             <h3>🌱 Soil Condition</h3>
             <p>pH Level: {ph}</p>
-            <p>NPK Balanced</p>
+            <p>Soil Status: {soil_status}</p>
+              
         </div>
         """, unsafe_allow_html=True)
 
@@ -218,13 +310,13 @@ st.markdown("""
 <div style="
     text-align:center; 
     color:white; 
-    font-size:14px; 
-    background-color:green; 
-    padding:10px; 
+    font-size:15px; 
+    background: linear-gradient(90deg, #1e7f3f, #2ecc71);
+    padding:15px; 
     border-radius:10px;
-    margin-top:20px;
+    margin-top:30px;
 ">
-    Accuracy: 92% &nbsp; | &nbsp; Model: AI Crop Recommender &nbsp; | &nbsp; Last Updated: Jan 2025
+    🚀 Model Accuracy: 92% &nbsp;       | &nbsp; AI Crop Recommender &nbsp;        | &nbsp; Updated:  March 2026
 </div>
 """, unsafe_allow_html=True)
 
