@@ -163,16 +163,25 @@ st.markdown("""
     background: linear-gradient(90deg, #1e7f3f, #f1c40f);
     border-radius: 15px;
     text-align: center;
-    color: white;
     margin:0 0 20px 0;
 }
 .header-container h1 {
     font-size: 42px;
     color: green;
+    text-shadow: 
+        -1px -1px 0 black,
+         1px -1px 0 black,
+        -1px  1px 0 black,
+         1px  1px 0 black;
 }
 .header-container p {
     font-size: 18px;
     color: green;
+    text-shadow: 
+        -1px -1px 0 black,
+         1px -1px 0 black,
+        -1px  1px 0 black,
+         1px  1px 0 black;
 }
 </style>
 
