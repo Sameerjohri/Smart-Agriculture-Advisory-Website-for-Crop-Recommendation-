@@ -37,6 +37,7 @@ st.markdown("""
 /* General */
 .card {
     background-color: rgba(255, 255, 255, 0.92);
+    color: black !important;
     border-radius: 15px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.12);
     text-align: center;
@@ -108,6 +109,21 @@ label {
     color: white !important;
 }
 
+/* Orange Predict Button */
+div.stButton > button {
+    background-color: #ff7f00 !important;   /* Orange */
+    color: white !important;               /* White text */
+    font-weight: bold;
+    border-radius: 10px;
+    height: 45px;
+    border: none;
+}
+
+/* Hover Effect */
+div.stButton > button:hover {
+    background-color: #e67300 !important;  /* Darker orange on hover */
+    color: white !important;
+}
 
 /* Tablet */
 @media (max-width: 992px) {
@@ -164,13 +180,14 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# WHITE INPUT CARD START
+# INPUT CARD 
 st.markdown("""
 <div style="
     background-color: rgba(255,255,255,0.95);
     padding: 25px;
     border-radius: 15px;
     margin-bottom: 20px;
+    color: black !important;
 ">
 <h3>🧪 Enter Soil & Weather Details</h3>
 </div>
