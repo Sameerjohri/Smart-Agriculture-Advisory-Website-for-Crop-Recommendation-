@@ -52,9 +52,8 @@ div.block-container {
 
 .header {
     background-color: rgba(255,255,255,0.92);
-    padding: 10px;
+    padding: 5px;
     border-radius: 15px;
-    margin-top: 5px;
     margin-bottom: 10px;
     text-align: center;
     
@@ -100,7 +99,7 @@ label {
     padding: 4px 8px !important;
     border-radius: 6px !important;
     font-weight: 600 !important;
-    color: white !important;
+    color: white ;
 }
 
 /* Extra fix for Streamlit labels */
@@ -161,20 +160,19 @@ div.stButton > button:hover {
 st.markdown("""
 <style>
 .header-container {
-    background: linear-gradient(90deg, #1e7f3f, #2ecc71);
-    padding: 25px;
+    background: linear-gradient(90deg, #1e7f3f, #f1c40f);
     border-radius: 15px;
     text-align: center;
     color: white;
     margin:0 0 20px 0;
 }
 .header-container h1 {
-    margin: 0;
-    font-size: 36px;
+    font-size: 42px;
+    color: green;
 }
 .header-container p {
-    margin: 0 0 0 0;
     font-size: 18px;
+    color: green;
 }
 </style>
 
@@ -188,7 +186,7 @@ st.markdown("""
 st.markdown("""
 <div style="
     background-color: rgba(255,255,255,0.70);
-    padding: 10px;
+    padding: 0px;
     border-radius: 15px;
     margin-bottom: 20px;
     color: black;
