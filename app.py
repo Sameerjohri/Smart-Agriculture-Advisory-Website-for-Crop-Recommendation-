@@ -311,7 +311,7 @@ if predict:
     color: black;
     font-weight: 600;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    margin: 15px 0;
+    margin: 10px 0;
     text-align: center;
 ">
     ✅ Prediction generated successfully!
