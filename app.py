@@ -109,20 +109,20 @@ label {
     color: white !important;
 }
 
-/* Orange Predict Button */
 div.stButton > button {
-    background-color: #ff7f00 !important;   /* Orange */
-    color: white !important;               /* White text */
+    background: linear-gradient(90deg, #ff7f00, #ff9a1f) !important;
+    color: white !important;
     font-weight: bold;
-    border-radius: 10px;
-    height: 45px;
+    border-radius: 12px;
+    height: 50px;
     border: none;
+    font-size: 16px;
+    transition: 0.3s ease-in-out;
 }
 
-/* Hover Effect */
 div.stButton > button:hover {
-    background-color: #e67300 !important;  /* Darker orange on hover */
-    color: white !important;
+    background: linear-gradient(90deg, #e67300, #ff7f00) !important;
+    transform: scale(1.02);
 }
 
 /* Tablet */
@@ -162,14 +162,14 @@ st.markdown("""
     border-radius: 15px;
     text-align: center;
     color: white;
-    margin-bottom: 20px;
+    margin:0 0 20px 0;
 }
 .header-container h1 {
     margin: 0;
     font-size: 36px;
 }
 .header-container p {
-    margin: 5px 0 0 0;
+    margin: 0 0 0 0;
     font-size: 18px;
 }
 </style>
@@ -183,8 +183,8 @@ st.markdown("""
 # INPUT CARD 
 st.markdown("""
 <div style="
-    background-color: rgba(255,255,255,0.95);
-    padding: 25px;
+    background-color: rgba(255,255,255,0.70);
+    padding: 10px;
     border-radius: 15px;
     margin-bottom: 20px;
     color: black;
