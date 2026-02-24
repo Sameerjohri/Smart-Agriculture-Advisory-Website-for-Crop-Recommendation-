@@ -187,7 +187,7 @@ st.markdown("""
     padding: 25px;
     border-radius: 15px;
     margin-bottom: 20px;
-    color: black !important;
+    color: black;
 ">
 <h3>🧪 Enter Soil & Weather Details</h3>
 </div>
